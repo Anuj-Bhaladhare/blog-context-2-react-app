@@ -1,9 +1,19 @@
 import "./App.css";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./context/AppContext";
-import Header from "./components/Header";
-import Blogs from "./components/Blogs";
-import Pagination from "./components/Pagination";
+import Home from "./pages/Home";
+import Categories from "./pages/Categories";
+import Tags from "./pages/Tags";
+import Blogs from "./pages/Blogs";
+// import Header from "./components/Header";
+// import Blogs from "./components/Blogs";
+// import Pagination from "./components/Pagination";
+
+
+
+
+
+import { Route, Routes } from "react-router-dom";
 export default function App() {
   const { fetchBlogPosts } = useContext(AppContext);
 
@@ -14,12 +24,13 @@ export default function App() {
   }, []);
 
   return (
-    <>
-      <Header />
-      <div className="my-[100px]">
-        <Blogs />
-        <Pagination />
-      </div>
-    </>
+     <div>
+        <Routes>
+           <Route path="/" element={<Home />}/>
+           <Route path="/blog/:blogID" element={<Blogs />}/>
+           <Route path="/tags/:tag" element={<Tags />}/>
+           <Route path="categories/:category" element={<Categories />}/>
+        </Routes>
+     </div>
   );
 }
