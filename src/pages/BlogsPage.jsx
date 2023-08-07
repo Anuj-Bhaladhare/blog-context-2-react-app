@@ -1,6 +1,9 @@
-import React, { useContext, useState } from "react";
-import { useLocation, useNavigation } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import { baseUrl } from "../baseUrl";
+import Header from "../components/Header";
+import BlogDetails from "../components/BlogDetails.jsx";
 
 const BlogsPage = () => {
 
@@ -8,17 +11,62 @@ const BlogsPage = () => {
     const[relatedBlog, setReletadeBlog] = useState();
     const[loading, setLoading] = useContext(AppContext);
     const location = useLocation();
-    const navigation = useNavigation();
+    const navigation = useNavigate();
     const blogID = location.pathname.split("/").at( -1 );
 
     const fetchBlogLocation = async() => {
-        
+        let url = `${baseUrl}?blogId=${blogID}`;
+        setLoading(true);
+        try{
+           const responce = await fetch(url);
+           const data = await responce.json();
+           
+           setBlog(data.blog);
+           setReletadeBlog(data.relatedBlogs);
+        }
+        catch(error){
+            console.log(error);
+            setBlog(null);
+            setReletadeBlog([]);
+        }
+        setLoading(false);
     }
+
+    useEffect( () => {
+        if(blogID) {
+            fetchBlogLocation();
+        }
+    },[location.pathname]);
 
     return (
 
         <div>
-            BlogsPage
+            <Header />
+            <div>
+                <button onClick={() => navigation( -1 ) }>Back</button>
+                <div>
+                    {
+                        loading ? (
+                            <div>Loading</div>
+                        ) :
+                        (
+                            blog ? (
+                                <div>
+                                    <BlogDetails post={blog}/>
+                                    <h2>Related Blog</h2>
+                                    {
+                                        relatedBlog.map( (post) => <div>
+                                            <BlogDetails post={post}/>
+                                        </div>)
+                                    }
+                                </div>
+                            ) : (
+                                <div>No Blog Available</div>
+                            )
+                        )
+                    }
+                </div>
+            </div>
         </div>
     )
 }
