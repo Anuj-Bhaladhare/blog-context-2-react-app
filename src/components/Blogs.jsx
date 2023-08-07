@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import BlogDetails from "../components/BlogDetails.jsx";
+import BlogDetails from "./BlogDetails.jsx";
 
 export default function Blogs() {
   const { posts, loading } = useContext(AppContext);
@@ -17,7 +17,7 @@ export default function Blogs() {
         </div>
       ) : (
         posts.map((post) => (
-          <BlogDetails post={post}/>
+          <BlogDetails key={post.id} post={post}/>
         ))
       )}
     </div>

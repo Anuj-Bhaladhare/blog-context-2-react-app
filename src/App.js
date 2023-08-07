@@ -6,9 +6,6 @@ import HomePage from "./pages/HomePage";
 import CategoriesPage from "./pages/CategoriesPage";
 import TagsPage from "./pages/TagsPage";
 import BlogsPage from "./pages/BlogsPage";
-// import Header from "./components/Header";
-// import Blogs from "./components/Blogs";
-// import Pagination from "./components/Pagination";
 
 
 

@@ -12,7 +12,7 @@ const BlogDetails = ({post}) => {
                 {`By ${post.author} on ${<NavLink to={`/categories/${post.category.replaceAll(" ", "-")}`}><p>{post.category}</p></NavLink>}`}  
                 </p>
                 <p>Posted ov {post.date}</p>  
-                <p>{post.contant}</p>
+                <p>{post.content}</p>
                 <div>
                     {
                         post.tags.map( (tag, index) => {

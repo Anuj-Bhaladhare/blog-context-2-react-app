@@ -9,14 +9,14 @@ const TagsPage = () => {
     const pageNavigate = useNavigate();
     const location = useLocation();
     const tag = location.pathname.split("/").at(-1);
-    
+
     return (
         <div>
             <Header />
             <div>
                 <button onClick={() => pageNavigate(-1)}>Back</button>
                 <h2>
-                    Blog Tag <span>{tag}</span>
+                    Blog Tag <span>#{tag}</span>
                 </h2>
             </div>
             <Blogs />

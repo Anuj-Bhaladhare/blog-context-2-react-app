@@ -1,3 +1,5 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { createContext, useState } from "react";
 import { baseUrl } from "../baseUrl";
 
@@ -8,6 +10,7 @@ export default function AppContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch Blog Data
   const fetchBlogPosts = async (page = 1, tag=null, catrgory) => {
@@ -48,9 +51,8 @@ export default function AppContextProvider({ children }) {
 
   // Handle When Next and Previous button are clicked
   const handlePageChange = (page) => {
+    navigate( { search: `?page=${page}`});
     setPage(page);
-    console.log(page);
-    fetchBlogPosts(page);
   };
 
   const value = {
